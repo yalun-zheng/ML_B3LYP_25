@@ -441,7 +441,7 @@ if __name__ == "__main__":
     import sys
     from hashlib import md5
     import xgboost as xgb
-    from model import ModelE, ModelD, ModelF
+    from model import ModelE
     yml = get_cfg(sys.argv[1])
     trainset = []
     for molname, bond_lengths in yml.train.geo.items():
@@ -504,26 +504,3 @@ if __name__ == "__main__":
         print(len(validdata))
         model = ModelE(feature_num=len(traindata[0]['x'][0]), device=yml.device)
         model.fit(traindata, validdata, model_path, lr=yml.train.lr, max_iter=yml.train.max_iter, batch_size=yml.train.batch_size)
-
-
-    model_path = os.path.join(yml.homepath, f'model/{md5value:.10}_{yml.basis}_{yml.base_method}_to_{yml.target_method}_{yml.n_samples}_constraint_d.pt')
-    if os.path.exists(model_path) and not yml.retrain:
-        print(model_path, 'already exists.')
-    else:
-        if not traindata:
-            traindata = gen_train_data_E(trainset, a=yml.edge_length, n_samples=yml.n_samples+1, priority=yml.train.bond_priority, basis=yml.basis, grid_level=yml.grid_level, base_method=yml.base_method, target_method=yml.target_method, e_T2=yml.e_T2, train=True, complex_geo=yml.train.complex_geo)
-            validdata = gen_train_data_E(validset, a=yml.edge_length, n_samples=yml.n_samples+1, priority=yml.train.bond_priority, basis=yml.basis, grid_level=yml.grid_level, base_method=yml.base_method, target_method=yml.target_method, e_T2=yml.e_T2, train=False, complex_geo=yml.train.complex_geo)
-        model = ModelD(feature_num=len(traindata[0]['x'][0]), device=yml.device)
-        model.fit(traindata, validdata, model_path, lr=yml.train.lr, max_iter=yml.train.max_iter, batch_size=yml.train.batch_size)
-    
-
-    model_path = os.path.join(yml.homepath, f'model/{md5value:.10}_{yml.basis}_{yml.base_method}_to_{yml.target_method}_{yml.n_samples}_constraint_f.pt')
-    if os.path.exists(model_path) and not yml.retrain:
-        print(model_path, 'already exists.')
-    else:
-        if not traindata:
-            traindata = gen_train_data_E(trainset, a=yml.edge_length, n_samples=yml.n_samples+1, priority=yml.train.bond_priority, basis=yml.basis, grid_level=yml.grid_level, base_method=yml.base_method, target_method=yml.target_method, e_T2=yml.e_T2, train=True, complex_geo=yml.train.complex_geo)
-            validdata = gen_train_data_E(validset, a=yml.edge_length, n_samples=yml.n_samples+1, priority=yml.train.bond_priority, basis=yml.basis, grid_level=yml.grid_level, base_method=yml.base_method, target_method=yml.target_method, e_T2=yml.e_T2, train=False, complex_geo=yml.train.complex_geo)
-        model = ModelF(feature_num=len(traindata[0]['x'][0]), device=yml.device)
-        model.fit(traindata, validdata, model_path, lr=yml.train.lr, max_iter=yml.train.max_iter, batch_size=yml.train.batch_size)
-

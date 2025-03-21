@@ -10,7 +10,7 @@ retrain: true
 device: 'cpu'
 train:
   batch_size: 4
-  max_iter: 30000
+  max_iter: 30
   lr: 0.00001
   bond_priority: 0
   geo: {
