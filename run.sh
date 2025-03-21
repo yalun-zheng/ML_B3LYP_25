@@ -1,5 +1,5 @@
 cd /home/alfred/ML_B3LYP
-mkdir -p data model data/xyz data/tmp data/pkl data/pkl/G2  data/pkl/test data/test
+mkdir -p data model data/xyz data/tmp data/pkl data/pkl/G2  data/pkl/test
 
 export PYSCF_TMPDIR="`pwd`/data/tmp"
 export PYSCF_MAX_MEMORY=400000
