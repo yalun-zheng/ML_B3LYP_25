@@ -1,0 +1,160 @@
+homepath: /mnt/c/Users/yalun/Desktop/ML_B3LYP
+
+base_method: b3lypg
+target_method: ccsdt
+basis: aug-cc-pvdz
+grid_level: 3
+edge_length: 0.9
+n_samples: 1
+retrain: true
+device: 'cpu'
+train:
+  batch_size: 4
+  max_iter: 30000
+  lr: 0.00001
+  bond_priority: 0
+  geo: {
+    'G2/h2o': [0.,],
+    'G2/nh3': [0.,],
+    'G2/no': [0.,],
+    'G2/ch2cl2': [0.,],
+    'G2/cnh3o2-1': [0.,],
+    'G2/cs2': [0.,],
+    'G2/cof2': [0.,],
+    'G2/pf3': [0.,],
+
+    'test/h': [0.,],    
+    'test/ch4': [[-0.1, 0.1, 3]],
+    'test/c2h6': [[-0.1, 0.1, 3]],
+    'test/c3h8': [[-0.1, 0.1, 3]],
+    'test/c2h4': [[-0.1, 0.1, 3]],
+    'test/c2h2': [[-0.1, 0.1, 3]],
+    'test/ch3': [-0.1, 0.1],
+    'test/c2h5': [-0.1, 0.1],
+    'test/TS17': [-0.1, 0.1],
+
+    'G2/na2': [0.,],
+    'G2/si2': [0.,],
+    'G2/alcl3': [0.,],
+    'G2/sih4': [0.,],
+    'G2/f3cl': [0.,],
+    'G2/bcl3': [0.,],
+    'G2/n2': [0,],
+
+    'G2/alf3': [0.,],
+    'G2/c4h10-1': [0.,],
+    'G2/c3h8o-2': [0.,],
+    'G2/c3nh9': [0.,],
+    'G2/cl2': [0.,],
+    'G2/chcl3': [0.,],
+    'G2/of2': [0.,],
+    'G2/o3': [0.,],
+    'G2/nocl': [0.,],
+    'G2/p2': [0.,],
+    'G2/ocl': [0.,],
+    'G2/n2o': [0.,],
+    'G2/hocl': [0.,],
+    'G2/fcl': [0.,],
+    'G2/no2': [0.,],
+    'G2/ch3cl': [0.,],
+    'G2/si2h6': [0.,],
+    'G2/c3h4-2': [0.,],
+    'G2/h2o2': [0.,],
+    }
+  valid_geo: {
+    'test/c2h2': [0.05],
+    'test/ch4': [0.05],
+    'test/ch3': [0.,],
+    'test/c3h8-eclipse': [0.],
+    'test/TS17': [0.,],
+    'test/c2h5': [0.],
+    'test/TS18': [0.,],
+    'test/c3h7': [0.,],
+    'test/c2h6': [0.4, 0.05],
+    'test/c2h4': [0.05,],
+
+    'G2/nacl': [0.,],
+  }
+
+valid:
+  model: /home/alfred/tree_regression/model/67b95475dc_aug-cc-pvdz_b3lypg_to_ccsdt_1_constraint_e.pt
+  csv_name: valid.csv
+  output: ['E', ]
+  bond_priority: 0
+  geo: {
+    "G2/*": [0.],
+    # "W4-11/*": [0.],
+    # "DIPCS10/*": [0.],
+    # "G21EA/*": [0.],
+    # "DC13/*": [0.],
+    # "ADIM6/*": [0.],
+    }
+
+test:
+  model: /home/alfred/tree_regression/model/67b95475dc_aug-cc-pvdz_b3lypg_to_ccsdt_1_constraint_e.pt
+  csv_name: test.csv
+  output: ['E',]
+  bond_priority: 0
+  geo: {
+    "G2/*": [0.],
+    # # "SIE4x4/*" : [0.], # He
+    # # "ALKBDE10/*" : [0.], # Ca
+    # # "HEAVYSB11/*" : [0.], # Pb
+    # # "HEAVY28/*" : [0.], # Bi
+    # # "RG18/*" : [0.], # Ar
+    # # "HAL59/*" : [0.], # I
+    # # "CHB6/*" : [0.], # K
+
+    # # "WATER27/*" : [0.],
+    # # "Amino20x4/*" : [0.],
+    # # "SCONF/*" : [0.],
+    # # "BUT14DIOL/*": [0.],
+
+    # # "DARC/*" : [0.],
+    # # "RSE43/*" : [0.],
+    # # "BSR36/*" : [0.],
+    # # "ISO34/*" : [0.],
+    # # "ISOL24/*" : [0.],
+    # # "C60ISO/*" : [0.],
+    # # "PArel/*" : [0.],
+
+    # "ADIM6/*" : [0.],
+
+    # "MB16-43/*": [0.],
+    # "FH51/*": [0.],
+    # "CDIE20/*": [0.],
+    # "BHDIV10/*": [0.],
+    # "PX13/*": [0.],
+    # "WCPT18/*": [0.],
+    # "W4-11/*": [0.],
+    # "G21EA/*": [0.],
+    # "G21IP/*": [0.],
+    # "DIPCS10/*": [0.],
+    # "PA26/*" : [0.],
+    # "YBDE18/*" : [0.],
+    # "AL2X6/*" : [0.],
+    # "NBPRC/*" : [0.],
+    # "ALK8/*" : [0.],
+    # "RC21/*" : [0.],
+    # "G2RC/*" : [0.],
+    # "BH76RC/*" : [0.],
+    # "TAUT15/*" : [0.],
+    # "DC13/*" : [0.],
+    # "BH76/*" : [0.],
+    # "BHPERI/*" : [0.],
+    # "INV24/*" : [0.], 
+    # "BHROT27/*" : [0.],
+    # "S22/*" : [0.],
+    # "S66/*" : [0.],
+    # "CARBHB12/*" : [0.],
+    # "PNICO23/*" : [0.],
+    # "AHB21/*" : [0.],
+    # "IL16/*" : [0.],
+    # "IDISP/*" : [0.],
+    # "ICONF/*" : [0.],
+    # "ACONF/*" : [0.],
+    # "PCONF21/*" : [0.],
+    # "MCONF/*" : [0.],
+    # "UPU23/*" : [0.],
+    }
+
