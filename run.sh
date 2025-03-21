@@ -1,4 +1,4 @@
-cd /mnt/c/Users/yalun/Desktop/ML_B3LYP
+cd /home/alfred/ML_B3LYP
 mkdir -p data model data/xyz data/tmp data/pkl data/test
 
 export PYSCF_TMPDIR="`pwd`/data/tmp"
