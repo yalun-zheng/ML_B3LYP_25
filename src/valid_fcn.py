@@ -1,8 +1,6 @@
 import pickle as pk
 import numpy as np
-from build import Tree
 from pyscf import gto, dft, cc, scf
-import matplotlib.pyplot as plt
 from einsum import dm2rho, dm2rho01, dm2eT2, dm2eJ, dm2eK, cal_dipole, cal_I, dm2rho01_sep
 from train_fcn import cal_mu, get_feature, gen_train_data_E
 import time

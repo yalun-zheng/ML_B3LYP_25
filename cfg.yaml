@@ -1,4 +1,4 @@
-homepath: /mnt/c/Users/yalun/Desktop/ML_B3LYP
+homepath: /home/alfred/ML_B3LYP
 
 base_method: b3lypg
 target_method: ccsdt
@@ -7,73 +7,23 @@ grid_level: 3
 edge_length: 0.9
 n_samples: 1
 retrain: true
-device: 'cpu'
+e_T2: true
+device: 'cuda:0'
 train:
   batch_size: 4
-  max_iter: 30
+  max_iter: 30000
   lr: 0.00001
   bond_priority: 0
+  complex_geo: []
   geo: {
     'G2/h2o': [0.,],
     'G2/nh3': [0.,],
     'G2/no': [0.,],
-    'G2/ch2cl2': [0.,],
-    'G2/cnh3o2-1': [0.,],
-    'G2/cs2': [0.,],
-    'G2/cof2': [0.,],
-    'G2/pf3': [0.,],
-
-    'test/h': [0.,],    
-    'test/ch4': [[-0.1, 0.1, 3]],
-    'test/c2h6': [[-0.1, 0.1, 3]],
-    'test/c3h8': [[-0.1, 0.1, 3]],
-    'test/c2h4': [[-0.1, 0.1, 3]],
-    'test/c2h2': [[-0.1, 0.1, 3]],
-    'test/ch3': [-0.1, 0.1],
-    'test/c2h5': [-0.1, 0.1],
-    'test/TS17': [-0.1, 0.1],
-
-    'G2/na2': [0.,],
-    'G2/si2': [0.,],
-    'G2/alcl3': [0.,],
-    'G2/sih4': [0.,],
-    'G2/f3cl': [0.,],
-    'G2/bcl3': [0.,],
-    'G2/n2': [0,],
-
-    'G2/alf3': [0.,],
-    'G2/c4h10-1': [0.,],
-    'G2/c3h8o-2': [0.,],
-    'G2/c3nh9': [0.,],
-    'G2/cl2': [0.,],
-    'G2/chcl3': [0.,],
-    'G2/of2': [0.,],
-    'G2/o3': [0.,],
-    'G2/nocl': [0.,],
-    'G2/p2': [0.,],
-    'G2/ocl': [0.,],
-    'G2/n2o': [0.,],
-    'G2/hocl': [0.,],
-    'G2/fcl': [0.,],
-    'G2/no2': [0.,],
-    'G2/ch3cl': [0.,],
-    'G2/si2h6': [0.,],
-    'G2/c3h4-2': [0.,],
-    'G2/h2o2': [0.,],
     }
   valid_geo: {
     'test/c2h2': [0.05],
     'test/ch4': [0.05],
     'test/ch3': [0.,],
-    'test/c3h8-eclipse': [0.],
-    'test/TS17': [0.,],
-    'test/c2h5': [0.],
-    'test/TS18': [0.,],
-    'test/c3h7': [0.,],
-    'test/c2h6': [0.4, 0.05],
-    'test/c2h4': [0.05,],
-
-    'G2/nacl': [0.,],
   }
 
 valid:
@@ -82,7 +32,7 @@ valid:
   output: ['E', ]
   bond_priority: 0
   geo: {
-    "G2/*": [0.],
+    "G2/h2o": [0.],
     # "W4-11/*": [0.],
     # "DIPCS10/*": [0.],
     # "G21EA/*": [0.],
@@ -96,7 +46,7 @@ test:
   output: ['E',]
   bond_priority: 0
   geo: {
-    "G2/*": [0.],
+    "G2/nh3": [0.],
     # # "SIE4x4/*" : [0.], # He
     # # "ALKBDE10/*" : [0.], # Ca
     # # "HEAVYSB11/*" : [0.], # Pb

@@ -16,7 +16,6 @@ from pyscf.grad.uks import Gradients as guks
 from pyscf.grad.rks import Gradients as gks
 from pyscf.grad.rhf import Gradients as ghf
 from pyscf.grad.uhf import Gradients as guhf
-import dftd3.pyscf as d3
 
 def gen_cube(center, mol, dm, mesh, ni, *args):
     if len(dm)==2:
@@ -415,7 +414,6 @@ def gen_test_data_E(path_list, eps=1e-7, a=0.9, n_samples=6, priority=0, basis='
             data['dipole_b3'] = cal_dipole(data['rho_b3'], data['gc'], data['gw'], data['atoms_charges'], data['atoms_coords'])
             data['dipole_hf'] = cal_dipole(data['rho_hf'], data['gc'], data['gw'], data['atoms_charges'], data['atoms_coords'])
             # data['dipole_pbe'] = cal_dipole(data['rho_pbe'], data['gc'], data['gw'], data['atoms_charges'], data['atoms_coords'])
-            # data['d3bj'] = d3.DFTD3Dispersion(mol, xc="b3lyp", version="d3bj").kernel()[0]
             with open(fn, 'wb') as f:
                 pk.dump(data, f)
     test_list = []
@@ -440,7 +438,6 @@ if __name__ == "__main__":
     from cfg import get_cfg
     import sys
     from hashlib import md5
-    import xgboost as xgb
     from model import ModelE
     yml = get_cfg(sys.argv[1])
     trainset = []

@@ -5,7 +5,6 @@ from pyscf import scf, gto, dft, cc
 from pyscf.dft.numint import NumInt
 from opt_einsum import contract
 import time
-import dftd3.pyscf as d3
 from einsum import dm2eEE, dm2eJ, dm2eT2, dm2eK, eval_vh, dm2eT, dm2rho, dm2rho01, cal_I, cal_dipole, dm2E1e, dm2J, dm2K
 from pyscf.cc import ccsd_t_rdm_slow, uccsd_t_rdm
 from pyscf.grad.uccsd_t import Gradients as guccsdt
@@ -201,7 +200,6 @@ def gen_pkl_e(xyz_dict, charge, spin, basis, grid_level, delta=5e-3):
     data['dipole_b3'] = cal_dipole(data['rho_b3'], data['gc'], data['gw'], data['atoms_charges'], data['atoms_coords'])
     data['dipole_hf'] = cal_dipole(data['rho_hf'], data['gc'], data['gw'], data['atoms_charges'], data['atoms_coords'])
     # data['dipole_pbe'] = cal_dipole(data['rho_pbe'], data['gc'], data['gw'], data['atoms_charges'], data['atoms_coords'])
-    data['d3bj'] = d3.DFTD3Dispersion(mol, xc="b3lyp", version="d3bj").kernel()[0]
     data['time'] = time.time() - t0
     return data
 
@@ -314,7 +312,6 @@ def gen_pkl(xyz_dict, charge, spin, basis, grid_level, dm_ccsdt=False):
     data['dipole_b3'] = cal_dipole(data['rho_b3'], data['gc'], data['gw'], data['atoms_charges'], data['atoms_coords'])
     data['dipole_hf'] = cal_dipole(data['rho_hf'], data['gc'], data['gw'], data['atoms_charges'], data['atoms_coords'])
     # data['dipole_pbe'] = cal_dipole(data['rho_pbe'], data['gc'], data['gw'], data['atoms_charges'], data['atoms_coords'])
-    data['d3bj'] = d3.DFTD3Dispersion(mol, xc="b3lyp", version="d3bj").kernel()[0]
     data['time'] = time.time() - t0
     return data
 
@@ -387,7 +384,6 @@ def gen_test_pkl(xyz_dict, charge, spin, basis, grid_level, F_ccsdt=False):
     data['dipole_b3'] = cal_dipole(data['rho_b3'], data['gc'], data['gw'], data['atoms_charges'], data['atoms_coords'])
     data['dipole_hf'] = cal_dipole(data['rho_hf'], data['gc'], data['gw'], data['atoms_charges'], data['atoms_coords']) 
     data['dipole_ccsd'] = cal_dipole(data['rho_ccsd'], data['gc'], data['gw'], data['atoms_charges'], data['atoms_coords'])
-    data['d3bj'] = d3.DFTD3Dispersion(mol, xc="b3lyp", version="d3bj").kernel()[0]
     data['time'] = time.time() - t0
     return data
 
@@ -547,7 +543,6 @@ def gen_test_pkl(xyz_dict, charge, spin, basis, grid_level, F_ccsdt=False):
 #     data['dipole_b3'] = cal_dipole(data['rho_b3'], data['gc'], data['gw'], data['atoms_charges'], data['atoms_coords'])
 #     # data['dipole_pbe'] = cal_dipole(data['rho_pbe'], data['gc'], data['gw'], data['atoms_charges'], data['atoms_coords'])
 #     data['dipole_zmp'] = cal_dipole(data['rho_zmp'], data['gc'], data['gw'], data['atoms_charges'], data['atoms_coords'])
-#     data['d3bj'] = d3.DFTD3Dispersion(mol, xc="b3lyp", version="d3bj").kernel()[0]
     
     
 if __name__ == "__main__":

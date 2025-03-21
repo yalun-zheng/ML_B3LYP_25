@@ -5,16 +5,19 @@ import matplotlib.pyplot as plt
 
 def draw(graph, show_stretch=False, priority=0):
     ele_sig = list('HCONFSPF') + ['Cl','Li', 'Si', 'Be', 'B', 'Na', 'Mg', 'Al']
-    fig = plt.figure()
-    ax = fig.add_subplot(projection='3d')
+    if show_stretch:
+        fig = plt.figure()
+        ax = fig.add_subplot(projection='3d')
     for ele, (x, y, z), color in graph:
-        ax.scatter([x], [y], [z], marker='.', s=400, c=color)
+        if show_stretch:
+            ax.scatter([x], [y], [z], marker='.', s=400, c=color)
     sig_record = {}
     for i, j in graph.edges():
         new_sig = ele_sig.index(graph[i][0])-0.01*len(graph.adj_list[i]) + ele_sig.index(graph[j][0])-0.01*len(graph.adj_list[j]) # order-0.01*num_neighbours
         # if sig < new_sig:
         sig_record[new_sig] = i,j
-        ax.plot([graph[i][1][0], graph[j][1][0]], [graph[i][1][1], graph[j][1][1]], [graph[i][1][2], graph[j][1][2]], c='k')
+        if show_stretch:
+            ax.plot([graph[i][1][0], graph[j][1][0]], [graph[i][1][1], graph[j][1][1]], [graph[i][1][2], graph[j][1][2]], c='k')
     # print(sig_record)
     if sig_record:
         sig_bond = sig_record[sorted(sig_record, reverse=True)[min([priority, len(sig_record)-1])]]
@@ -29,7 +32,7 @@ def draw(graph, show_stretch=False, priority=0):
         ax.set_ylabel('Y / Bohr')
         ax.set_zlabel('Z / Bohr')
         plt.show()
-    plt.close()
+        plt.close()
     return sig_bond
 
 def rotationMatrix(alpha, v, unit='degree'):
