@@ -3,10 +3,12 @@ Clone this repository into your device.
 `git clone https://github.com/yalun-zheng/ML_B3LYP.git`  or  `git clone git@github.com:yalun-zheng/ML_B3LYP.git`    
 Assume that the repository is cloned in /path_to_code/ML_B3LYP, then assign this path in cfg.yaml and in run.sh, separately, as follows.   
 In cfg.yaml, change the first line homepath: /mnt/c/Users/yalun/Desktop/ML_B3LYP with  
-```homepath: /path_to_code/ML_B3LYP
+```
+homepath: /path_to_code/ML_B3LYP
 ```     
 Also in run.sh, change the first line cd /mnt/c/Users/yalun/Desktop/ML_B3LYP with  
-```cd /path_to_code/ML_B3LYP
+```
+cd /path_to_code/ML_B3LYP
 ```
 
 #### Step 2
