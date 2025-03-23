@@ -32,11 +32,11 @@ pandas
 ```
 Make sure directories named with subsets name like `/path_to_code/ML_B3LYP/data/pkl/G2/`, `/path_to_code/ML_B3LYP/data/pkl/test/` or `/path_to_code/ML_B3LYP/data/pkl/other_dataset_name/`  are made.
 #### Step 3
-Run the script run.sh to train valid or test a model.  
+Run the script run.sh to train, valid or test a model.  
 ```
 sh run.sh
 ```
 The validation and test results using the default model will be saved in valid.csv and test.csv    
 
 #### Note  
-By editing cfg.yaml and giving the corresponding xyz files, you can validate/test any structure using any model you trained.
+By editing cfg.yaml and giving the corresponding .xyz files, you can validate/test any structure using the default model I uploaded or any other model you trained.
