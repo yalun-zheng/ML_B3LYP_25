@@ -1,4 +1,4 @@
-<img src="https://github.com/user-attachments/assets/50c452f8-c765-4ae2-8fe5-96a9fabc9e24" alt="img" width="600" height="450">  
+<img src="https://github.com/user-attachments/assets/25798da7-8e92-4778-8f27-f2e5945cefe9" alt="img" width="600" height="450">  
 
 #### Step 1
 Clone this repository into your device. Run  
