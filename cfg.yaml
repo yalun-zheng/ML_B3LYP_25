@@ -1,4 +1,4 @@
-homepath: /home/alfred/ML_B3LYP
+homepath: PATH_TO_CODE
 
 base_method: b3lypg
 target_method: ccsdt
@@ -27,7 +27,7 @@ train:
   }
 
 valid:
-  model: /home/alfred/tree_regression/model/67b95475dc_aug-cc-pvdz_b3lypg_to_ccsdt_1_constraint_e.pt
+  model: model/67b95475dc_aug-cc-pvdz_b3lypg_to_ccsdt_1_constraint_e.pt
   csv_name: valid.csv
   output: ['E', ]
   bond_priority: 0
@@ -41,7 +41,7 @@ valid:
     }
 
 test:
-  model: /home/alfred/tree_regression/model/67b95475dc_aug-cc-pvdz_b3lypg_to_ccsdt_1_constraint_e.pt
+  model: model/67b95475dc_aug-cc-pvdz_b3lypg_to_ccsdt_1_constraint_e.pt
   csv_name: test.csv
   output: ['E',]
   bond_priority: 0
