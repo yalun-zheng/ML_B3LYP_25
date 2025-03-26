@@ -1,4 +1,4 @@
-cd /home/alfred/ML_B3LYP
+cd PATH_TO_CODE
 mkdir -p data model data/xyz data/tmp data/pkl data/pkl/G2  data/pkl/test
 
 export PYSCF_TMPDIR="`pwd`/data/tmp"
