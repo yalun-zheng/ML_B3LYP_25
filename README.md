@@ -3,20 +3,20 @@
 #### Step 1
 Clone this repository into your device. Run  
 ```
-git clone https://github.com/yalun-zheng/ML_B3LYP.git
+git clone https://github.com/yalun-zheng/ML_B3LYP_25.git
 ```  
 or
 ```
-git clone git@github.com:yalun-zheng/ML_B3LYP.git
+git clone git@github.com:yalun-zheng/ML_B3LYP_25.git
 ```      
-Assume that the repository is cloned in /path_to_code/ML_B3LYP, then assign this path in cfg.yaml and in run.sh, separately, as follows.   
+Assume that the repository is cloned in /path_to_code/ML_B3LYP_25, then assign this path in cfg.yaml and in run.sh, separately, as follows.   
 In cfg.yaml, change the first line homepath: PATH_TO_CODE with  
 ```
-homepath: /path_to_code/ML_B3LYP
+homepath: /path_to_code/ML_B3LYP_25
 ```     
 Also in run.sh, change the first line cd PATH_TO_CODE with  
 ```
-cd /path_to_code/ML_B3LYP
+cd /path_to_code/ML_B3LYP_25
 ```
 
 #### Step 2
@@ -30,7 +30,7 @@ torch
 matplotlib
 pandas
 ```
-Make sure directories named with subsets name like `/path_to_code/ML_B3LYP/data/pkl/G2/`, `/path_to_code/ML_B3LYP/data/pkl/test/` or `/path_to_code/ML_B3LYP/data/pkl/other_dataset_name/`  are made.
+Make sure directories named with subsets name like `/path_to_code/ML_B3LYP_25/data/pkl/G2/`, `/path_to_code/ML_B3LYP_25/data/pkl/test/` or `/path_to_code/ML_B3LYP_25/data/pkl/other_dataset_name/`  are made.
 #### Step 3
 Run the script run.sh to train, valid or test a model.  
 ```
