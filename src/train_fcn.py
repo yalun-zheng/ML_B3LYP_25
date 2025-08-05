@@ -183,6 +183,7 @@ def stretch_mol(fn, priority, basis, grid_level, skip_dm=False):
     xyz_path = os.path.join(os.path.dirname(fn).replace('/pkl/', '/xyz/'), os.path.basename(fn).split('_')[0]+'.xyz')
     assert os.path.exists(xyz_path), f'error! pls put {os.path.basename(xyz_path)} into {os.path.dirname(xyz_path)}'
     dist = float(os.path.basename(fn).split('_')[1])
+    molname = os.path.basename(fn).split('_')[0]
     struct = MolGraph(xyz_path)
     if len(struct)>1 and abs(dist) > 1e-6:
         i, j = draw(struct, priority=priority)
@@ -199,13 +200,45 @@ def stretch_mol(fn, priority, basis, grid_level, skip_dm=False):
             f.write(' '.join([ele, str(coord[0]), str(coord[1]), str(coord[2])])+'\n')
     xyz_dict, charge, spin = read_xyz_to_dict(tmp)
     if skip_dm:
-        data = gen_test_pkl(xyz_dict, charge, spin, basis, grid_level)
+        # orca DLPNO nofrozencore
+        molname2e = {'6int':-270.767886028010,
+        'Ap':-466.517129985543,
+        'c2h2p':-77.376322097795,
+        'Corannulene-TS':-766.134977475099,
+        'p2p':-78.641470887375,
+        'p4p':-155.881607475646,
+        'p6p':-233.107257475912,
+        'PCl3-TS':-1719.826745461566,
+        'pr':-118.143392628040,
+        'si2h6p':-581.937290251406,
+        'sih4p':-291.658275583152,
+        'Sumanene-TS':-805.299753470655,
+        'Triazasumanene-TS':-853.303145834314,}    
+        # orca DLPNO default frozencore
+        # molname2e = {'6int':-270.750637923729,
+        # 'Ap':-466.488223472382,
+        # 'c2h2p':-77.371041011786,
+        # 'Corannulene-TS':-766.075623226730,
+        # 'p2p':-78.635998889752,
+        # 'p4p':-155.870643109474,
+        # 'p6p':-233.090693185644,
+        # 'PCl3-TS':-1719.799559548691,
+        # 'pr':-118.134929102915,
+        # 'si2h6p':-581.917304890944,
+        # 'sih4p':-291.649500309671,
+        # 'Sumanene-TS':-805.236866452296,
+        # 'Triazasumanene-TS':-853.240685561141,}
+        if molname in molname2e:
+            data = gen_test_pkl(xyz_dict, charge, spin, basis, grid_level)
+            data['E_ccsdt'] = molname2e[molname]
+        else:
+            data = gen_pkl(xyz_dict, charge, spin, basis, grid_level)
     else:
         data = gen_pkl(xyz_dict, charge, spin, basis, grid_level)
     with open(fn, 'wb') as f:
         pk.dump(data, f)
     print(f'Ellapsed time: {time.time()-sta_time:.2f}s')
-    print(data['converged'])
+    # print(data['converged'])
     
 def gen_train_data_e(path_list, eps=1e-7, a=0.9, n_samples=6, priority=0, basis='aug-cc-pvtz', grid_level=3, base_method='b3lyp', target_method='ccsd', e_T2=True, train=True, complex_geo=[]):
     if 'b3' in base_method.lower():
@@ -336,14 +369,12 @@ def gen_train_data_E(path_list, eps=1e-7, a=0.9, n_samples=6, priority=0, basis=
         #             data['F_ccsdt'] = -guccsdt(mycc).kernel(mycc.t1, mycc.t2, mycc.l1, mycc.l2, eris=eris)
         #     with open(fn, 'wb') as f:
         #         pk.dump(data, f)
-        valid_list.append({'x':x, 'rho_base':data[f'rho_{base_method}'], 'gc':data['gc'], 'gw':data['gw'], 'rho_target':data.get(f'rho_{target_method}', data['rho_ccsd']),
+        valid_list.append({'x':x, 'rho_base':data[f'rho_{base_method}'], 'gc':data['gc'], 'gw':data['gw'],
                         'fn':fn, 'atoms_charges':data['atoms_charges'], 'atoms_coords':data['atoms_coords'], 'dipole_base':data[f'dipole_{base_method}'],
-                        'dipole_target':data.get(f'dipole_{target_method}', data['dipole_ccsd']),
                         'E_base':data[f'E_{base_method}'], 'E_target':data[f'E_{target_method}'], #'I_base':data[f'I_{base_method}'],
                         'spin':data['spin'], 'charge':data['charge'],
                         'E_N':data['E_N'], 
-                        'timeks': t1-t0, 'timefeature':t2-t1,'npoints': len(data['gw']), 'nbasis': mol.nao,
-                        'F_base': data[f'F_{base_method}'], 'F_target': data.get(f'F_{target_method}', data['F_ccsd'])})
+                        'timeks': t1-t0, 'timefeature':t2-t1,'npoints': len(data['gw']), 'nbasis': mol.nao})
     return valid_list
 
 
@@ -500,4 +531,5 @@ if __name__ == "__main__":
         print(len(traindata))
         print(len(validdata))
         model = ModelE(feature_num=len(traindata[0]['x'][0]), device=yml.device)
+        #model.load('/home/alfred/ML_B3LYP_25/model/ML_B3LYP_model.pt')
         model.fit(traindata, validdata, model_path, lr=yml.train.lr, max_iter=yml.train.max_iter, batch_size=yml.train.batch_size)
